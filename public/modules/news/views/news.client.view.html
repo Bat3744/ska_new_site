@@ -1,0 +1,14 @@
+<section data-ng-controller="NewsController" data-ng-init="find()">
+    <div class="page-header">
+        <h1>News</h1>
+    </div>
+    <div class="list-group">
+        <a data-ng-repeat="news in news" data-ng-href="#!/news/{{news._id}}" class="list-group-item">
+            <h4 class="list-group-item-heading" data-ng-bind="news.titre"></h4>
+            <span data-ng-bind="news.texte"></span>
+        </a>
+    </div>
+    <div class="alert alert-warning text-center" data-ng-hide="!news.$resolved || news.length">
+        Aucune news<a href="/#!/news/create"> créer une news </a>?
+    </div>
+</section>

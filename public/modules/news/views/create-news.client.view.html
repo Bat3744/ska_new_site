@@ -23,7 +23,9 @@
 
                 <div class="form-group">
                     <label class="control-label" for="image">Image</label>
-                    <input type="file" name="image" data-ng-model="image" ngf-select="onFileSelect($file)"/>
+                    <div class="button" ngf-select ng-model="image" ngf-multiple="false">Select File</div>
+                    <!-- <button ng-click="uploadPic(picFile)">Submit</button> -->
+                    <!-- <input type="file" name="image" data-ng-model="image" ngf-select="onFileSelect($file)"/> -->
                     <!-- <input type="file" name="image" data-ng-model="image" class="form-control" />
                     <div id="uploadWidget" class="btn btn-default" ng-file-select ng-file-change="upload($files)">Select File</div> -->
                 </div>

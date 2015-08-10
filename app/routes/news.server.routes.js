@@ -19,7 +19,7 @@ module.exports = function(app) {
               console.log('========>' + file.fieldname + ' uploaded to  ' + file.path);
             }
         }).single('image'), function (req, res, next) {
-            console.log('========>' + req.file);
+            console.log('========> test image server 1' + req.file);
         }, function(request,response,next){
 
     console.log(request.body);

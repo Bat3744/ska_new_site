@@ -1,44 +1,42 @@
 'use strict';
 
 // News controller
-angular.module('news', []).controller('NewsController', ['$scope', '$log', '$stateParams', '$location', 'Authentication', 'News',
-	function($scope, $log, $stateParams, $location, Authentication, News) {
+angular.module('news').controller('NewsController', ['$scope', 'Upload', '$timeout', '$log', '$stateParams', '$location', 'Authentication', 'News',
+	function($scope, Upload, $timeout, $log, $stateParams, $location, Authentication, News) {
 		$scope.authentication = Authentication;
 
-	/*	var uploader = $scope.uploader = new FileUploader({
-            url: 'upload.php'
-        });*/
+	    $scope.$watch('image', function () {
+	        if ($scope.image !== null) {
+				$scope.upload($scope.image);
+	        }
+	    });
 
-/*
-		$scope.onFileSelect = function($file) {
+	    $scope.upload = function (file) {
+	        if (file) {
 
-			$upload.upload({
-			url: './uploads/',
-			file: $file,
-			progress: function(e){}
-			}).then(function(data, status, headers, config) {
-				// file is uploaded successfully
-				$log.debug('========> ' + data);
-			}); 
+                $log.debug('========> test file 2 ' + file);
 
-		};
-*/
+                Upload.upload({
+                    url: '/api/upload',
+                    file: file
+                }).progress(function (evt) {
+                    var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                    $log.debug('========> progress: ' + progressPercentage + '% ' +
+                                evt.config.file.name);
+                }).success(function (data, status, headers, config) {
+                    $timeout(function() {
+                        $log.debug('========> file: ' + config.file.name + ', Response: ' + JSON.stringify(data));
+                    });
+                });
+	            
+	        }
+	    };
+
 
 		// Create new news
 		$scope.create = function() {
 
 			$log.debug('========> ' + this.image);
-
-			// Upload de l'image et récupération du nom
-		/*	if (this.image) {
-                $upload.upload({url: '/uploadFile', file: this.image}).progress(function (event) {
-                    var progressPercentage = parseInt(100.0 * event.loaded / event.total);
-                    $log.debug('progress: ' + progressPercentage + '% ' + event.config.file.name);
-                }).success(function (data, status, headers, config) {
-                    $log.debug('file ' + config.file.name + 'uploaded. Response: ' + JSON.stringify(data));
-                    $scope.image.path = data.path;
-                });
-            }*/
 
 			// Création de l'objet news
 			var news = new News ({

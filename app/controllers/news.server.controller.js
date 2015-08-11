@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	News = mongoose.model('News'),
+	fs = require('fs'),
     _ = require('lodash');
 
 /**
@@ -56,6 +57,12 @@ exports.update = function(req, res) {
  */
 exports.delete = function(req, res) {
 	var news = req.news;
+
+	console.log('------------------> ' + req.url);
+
+	if (news.image.absolutePath !== null) {
+		fs.unlinkSync(news.image.absolutePath);
+	}
 
 	news.remove(function(err) {
 		if (err) {

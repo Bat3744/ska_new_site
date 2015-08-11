@@ -16,7 +16,7 @@
         <a data-ng-repeat="news in news" data-ng-href="#!/news/{{news._id}}" class="list-group-item">
             <h4 class="list-group-item-heading" data-ng-bind="news.titre"></h4>
             <span data-ng-bind="news.texte"></span>
-            <img ng-src="{{news.image}}" class="img-rounded thumbnail" />
+            <img ng-show="{{news.image.relativePath != null && news.image.relativePath != ''}}" ng-src="{{news.image.relativePath}}" class="img-rounded thumbnail" />
         </a>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!news.$resolved || news.length">

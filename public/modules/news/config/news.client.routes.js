@@ -18,7 +18,7 @@ angular.module('news').config(['$stateProvider',
 			templateUrl: 'modules/news/views/view-news.client.view.html'
 		}).
 		state('editNews', {
-			url: '/news/:NewsId/edit',
+			url: '/news/:newsId/edit',
 			templateUrl: 'modules/news/views/edit-news.client.view.html'
 		});
 	}

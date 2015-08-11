@@ -1,3 +1,15 @@
-<section data-ng-controller="NewsController">
-	This is the View news
+<section data-ng-controller="NewsController" data-ng-init="findOne()">
+	<div class="page-header">
+		<h1 data-ng-bind="news.titre"></h1>
+		<p data-ng-bind="news.texte"></p>
+		<img ngf-src="news.image.relativePath"> 
+	</div>
+	<div class="pull-right">
+		<a class="btn btn-primary" href="/#!/news/{{news._id}}/edit">
+			<i class="glyphicon glyphicon-edit"></i>
+		</a>
+		<a class="btn btn-primary" data-ng-click="remove();">
+			<i class="glyphicon glyphicon-trash"></i>
+		</a>
+	</div>
 </section>

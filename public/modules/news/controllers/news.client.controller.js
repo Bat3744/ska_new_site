@@ -24,19 +24,27 @@ angular.module('news').controller('NewsController', ['$scope', 'Upload', '$timeo
                 }).progress(function (evt) {
 		            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
 		            $scope.progress = progressPercentage;
-		            $log.debug('progress: ' + progressPercentage + '% ' + evt.config.file.name);
 		        }).success(function (data, status, headers, config) {
 					$timeout(function() {
 
+						// redéfinition du path de l'image
                         var renameImagePath = data.replace('public', '');
-
                         $scope.imagePath = renameImagePath;
+
+                        try {
+							$scope.news.image.relativePath = renameImagePath;
+							$scope.news.image.absolutePath = data;
+						}
+                        catch (ex) {
+                        	$scope.image.relativePath = renameImagePath;
+                        	$scope.image.absolutePath = data;
+                        }
+                        
                     });
                 });
 	            
 	        }
 	    };
-
 
 		// Create new news
 		$scope.create = function() {
@@ -45,7 +53,10 @@ angular.module('news').controller('NewsController', ['$scope', 'Upload', '$timeo
 			var news = new News ({
 				titre: this.titre,
 				texte: this.texte,
-				image: $scope.imagePath
+				image: {
+					relativePath: this.image.relativePath,
+					absolutePath: this.image.absolutePath
+				}
 			});
 
 			// Redirect after save
@@ -63,6 +74,7 @@ angular.module('news').controller('NewsController', ['$scope', 'Upload', '$timeo
 		// Remove existing news
 		$scope.remove = function(news) {
 			if (news) { 
+
 				news.$remove();
 
 				for (var i in $scope.news) {

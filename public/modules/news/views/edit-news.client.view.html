@@ -1,3 +1,48 @@
-<section data-ng-controller="NewsController">
-	This is the Edit news
+<section data-ng-controller="NewsController" data-ng-init="findOne()">
+    <div class="page-header">
+        <h1>Edition de la news</h1>
+    </div>
+    <div class="col-md-12">
+        <form class="form-horizontal" data-ng-submit="update()" novalidate>
+            <fieldset>
+
+                <div class="form-group">
+                    <label class="control-label" for="name">titre</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="news.titre" id="titre" class="form-control" placeholder="Titre" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="description">texte</label>
+                    <div class="controls">
+                        <textarea name="texte" data-ng-model="news.texte" id="texte" class="form-control" cols="30" rows="10" placeholder="Texte" required></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="image">Image</label>
+                    <div class="btn btn-default" ngf-select ng-model="image" ngf-multiple="false">Select File</div>
+
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{progress}}%;">
+                            <span class="sr-only">{{progress}}% Complete</span>
+                        </div>
+                    </div>
+
+                    <input type="hidden" data-ng-model="news.image.relativePath" id="image" class="form-control" />
+
+                    <img ngf-src="news.image.relativePath"> 
+
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Update" class="btn btn-default">
+                </div>
+				<div data-ng-show="error" class="text-danger">
+					<strong data-ng-bind="error"></strong>
+				</div>
+            </fieldset>
+        </form>
+    </div>
 </section>

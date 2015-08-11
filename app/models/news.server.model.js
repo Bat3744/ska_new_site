@@ -43,9 +43,14 @@ var NewsSchema = new Schema({
 
     // Image
     image: {
-        type: String,
-        default: '',
-        trim: true
+        relativePath: {
+            type: String,
+            trim: true
+        },
+        absolutePath: {
+            type: String,
+            trim: true
+        }
     }
 });
 

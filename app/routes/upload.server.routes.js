@@ -1,43 +1,45 @@
 'use strict';
 
+/**
+ * Module dependencies.
+ */
+
+var multer = require('multer');
+var fs = require('fs');
+var done = false;
+
+var upload = multer({ 
+	dest: './public/modules/news/img',
+	rename: function (fieldname, filename) {
+	    return filename + 'test';
+	},
+	onFileUploadStart: function (file) {
+	  	console.log(file.originalname + ' is starting ...');
+	},
+	onFileUploadComplete: function (file) {
+	  	console.log(file.fieldname + ' uploaded to  ' + file.path);
+	  	done = true;
+	}
+});
+
 module.exports = function(app) {
-
-	/**
-	 * Module dependencies.
-	 */
-	// var express = require('express');
-	var multer = require('multer');
-	// var app = express();
-	var done = false;
-
-	/**
-	 * use : appelé à chaque requete "/api/upload"
-	 */
-	app.use(multer({ dest: './uploads/',
-		rename: function (fieldname, filename, req, res) {
-			console.log('========> file name server : ' + filename);
-		    return filename + Date.now();
-		},
-		onFileUploadStart: function (file) {
-		  	console.log('========>' + file.originalname + ' is starting ...');
-		},
-		onFileUploadComplete: function (file) {
-		  	console.log('========>' + file.fieldname + ' uploaded to  ' + file.path);
-		  	done = true;
-		}
-	}).single('file'), function (req, res, next) {
-		console.log('========> test server 3 ' + req.file);
-	});
 
 	/**
 	 * POST "/api/upload"
 	 */
-	app.post('/api/upload', function(req,res){
+	app.post('/api/upload', upload.single('file'), function(req,res){
+
+		// fs.renameSync(req.file.path, req.file.path + '.png');
+		console.log('========> test server 5 ' + req.file.path + req.file.filename);
+		res.end(req.file.path);
+		
 		if (done === true){
 			console.log('========> test server 4 ' + req.files);
 			res.end('File uploaded.');
 		}
 	});
+
+	// app.route('uploads')
 };
 
 

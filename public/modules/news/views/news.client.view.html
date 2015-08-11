@@ -1,3 +1,13 @@
+<style type="text/css">
+
+    .thumbnail {
+        max-width: 100px;
+        max-height: 100px;
+    }
+
+</style>
+
+
 <section data-ng-controller="NewsController" data-ng-init="find()">
     <div class="page-header">
         <h1>News</h1>
@@ -6,6 +16,7 @@
         <a data-ng-repeat="news in news" data-ng-href="#!/news/{{news._id}}" class="list-group-item">
             <h4 class="list-group-item-heading" data-ng-bind="news.titre"></h4>
             <span data-ng-bind="news.texte"></span>
+            <img ng-src="{{news.image}}" class="img-rounded thumbnail" />
         </a>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!news.$resolved || news.length">

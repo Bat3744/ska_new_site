@@ -1,5 +1,7 @@
 'use strict';
 
+// var fs = require("fs");
+
 // News controller
 angular.module('news').controller('NewsController', ['$scope', 'Upload', '$timeout', '$log', '$stateParams', '$location', 'Authentication', 'News',
 	function($scope, Upload, $timeout, $log, $stateParams, $location, Authentication, News) {
@@ -14,18 +16,21 @@ angular.module('news').controller('NewsController', ['$scope', 'Upload', '$timeo
 	    $scope.upload = function (file) {
 	        if (file) {
 
-                $log.debug('========> test file 2 ' + file);
-
                 Upload.upload({
                     url: '/api/upload',
                     file: file
                 }).progress(function (evt) {
                     var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                    $log.debug('========> progress: ' + progressPercentage + '% ' +
-                                evt.config.file.name);
-                }).success(function (data, status, headers, config) {
-                    $timeout(function() {
-                        $log.debug('========> file: ' + config.file.name + ', Response: ' + JSON.stringify(data));
+                }).progress(function (evt) {
+		            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+		            $scope.progress = progressPercentage;
+		            $log.debug('progress: ' + progressPercentage + '% ' + evt.config.file.name);
+		        }).success(function (data, status, headers, config) {
+					$timeout(function() {
+
+                        var renameImagePath = data.replace('public', '');
+
+                        $scope.imagePath = renameImagePath;
                     });
                 });
 	            
@@ -36,16 +41,12 @@ angular.module('news').controller('NewsController', ['$scope', 'Upload', '$timeo
 		// Create new news
 		$scope.create = function() {
 
-			$log.debug('========> ' + this.image);
-
 			// Création de l'objet news
 			var news = new News ({
 				titre: this.titre,
 				texte: this.texte,
-				image: this.image
+				image: $scope.imagePath
 			});
-
-			$log.debug('Enregistrement [' + this.titre + ' | ' + this.texte + '|' + this.image + ']');
 
 			// Redirect after save
 			news.$save(function(response) {

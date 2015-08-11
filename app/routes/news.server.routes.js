@@ -8,24 +8,11 @@ module.exports = function(app) {
 
     app.route('/news')
         .get(news.list)
-        .post(users.requiresLogin, news.create, multer({ dest: './uploads/',
-            rename: function (fieldname, filename) {
-                return filename + Date.now();
-            },
-            onFileUploadStart: function (file) {
-              console.log('========>' + file.originalname + ' is starting ...');
-            },
-            onFileUploadComplete: function (file) {
-              console.log('========>' + file.fieldname + ' uploaded to  ' + file.path);
-            }
-        }).single('image'), function (req, res, next) {
-            console.log('========> test image server 1' + req.file);
-        }, function(request,response,next){
-
-    console.log(request.body);
-    console.log(request.files);
-    // Response code and stuff then ...
-});
+        .post(users.requiresLogin, news.create, function(request,response,next){
+            console.log(request.body);
+            console.log(request.files);
+            // Response code and stuff then ...
+        });
 
     app.route('/news/:newsId')
         .get(news.read)

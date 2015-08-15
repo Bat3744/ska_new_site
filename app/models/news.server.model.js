@@ -45,13 +45,41 @@ var NewsSchema = new Schema({
     image: {
         relativePath: {
             type: String,
-            trim: true
+            trim: true,
+            writable: true
         },
         absolutePath: {
             type: String,
+            trim: true,
+            writable: true
+        }
+    },
+
+    // Lien vidéo
+    video: {
+        link: {
+            type: String,
             trim: true
         }
-    }
+    },
+
+    // Lien
+    lien: {
+        url: {
+            type: String,
+            trim: true
+        },
+        libelle: {
+            type: String,
+            trim: true 
+        }
+    },
+
+    // Publié
+    publie: {
+        type: Boolean,
+        default: false
+    },
 });
 
 mongoose.model('News', NewsSchema);

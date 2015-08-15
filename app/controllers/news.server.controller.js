@@ -58,10 +58,15 @@ exports.update = function(req, res) {
 exports.delete = function(req, res) {
 	var news = req.news;
 
-	console.log('------------------> ' + req.url);
-
-	if (news.image.absolutePath !== null) {
-		fs.unlinkSync(news.image.absolutePath);
+	// suppression de l'image
+	if (typeof news.image.absolutePath !== 'undefined') {
+		try {
+			fs.unlinkSync(news.image.absolutePath);
+		}
+		catch (ex) {
+			console.error('Erreur lors de la suppression de l\'image : ' + ex);
+		}
+		
 	}
 
 	news.remove(function(err) {

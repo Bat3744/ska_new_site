@@ -13,3 +13,42 @@
 .ng-valid.ng-dirty {
 	border-color: #78FA89;
 }
+
+.thumb {
+    max-height: 40px;
+    float: none;
+    position: relative;
+}
+
+.pad-15 {
+	padding: 15px;
+}
+
+.pad-top-7 {
+	padding-top: 7px;
+}
+
+.pad-top-20 {
+	padding-top: 20px;
+}
+
+.img-max-width {
+	max-width: 1108px;
+}
+
+.img-max-height {
+	max-width: 200px;
+}
+
+.list-group-item {
+	border-radius: 0px !important;
+}
+
+body {
+	background: url('/modules/core/img/18837625540_9e4a7d411b_k.jpg');
+	background-attachment:fixed;
+}
+
+section:first-child {
+	background: #FFFFFF;
+}

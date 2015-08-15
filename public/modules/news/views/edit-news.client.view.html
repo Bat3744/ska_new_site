@@ -7,37 +7,71 @@
             <fieldset>
 
                 <div class="form-group">
-                    <label class="control-label" for="name">titre</label>
+                    <label class="control-label" for="name">Titre</label>
                     <div class="controls">
                         <input type="text" data-ng-model="news.titre" id="titre" class="form-control" placeholder="Titre" required>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label" for="description">texte</label>
+                    <label class="control-label" for="description">Texte</label>
                     <div class="controls">
-                        <textarea name="texte" data-ng-model="news.texte" id="texte" class="form-control" cols="30" rows="10" placeholder="Texte" required></textarea>
+                        <textarea name="texte" data-ng-model="news.texte" id="texte" class="form-control" cols="30" rows="10" placeholder="Texte"></textarea>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="control-label" for="image">Image</label>
-                    <div class="btn btn-default" ngf-select ng-model="image" ngf-multiple="false">Select File</div>
 
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{progress}}%;">
-                            <span class="sr-only">{{progress}}% Complete</span>
+                    <div class="row">
+
+                        <div class="col-md-2">
+                            <div class="btn btn-default" ngf-select ng-model="image" ngf-multiple="false">Sélectionner un fichier</div>
                         </div>
+
+                        <div class="col-md-4 pad-top-7">
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{progress}}%;">
+                                    <span class="sr-only">{{progress}}% Complete</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <input type="hidden" data-ng-model="news.image.relativePath" id="image" class="form-control" />
+                            <img ngf-src="news.image.relativePath"  class="thumb"> 
+                        </div>
+
                     </div>
-
-                    <input type="hidden" data-ng-model="news.image.relativePath" id="image" class="form-control" />
-
-                    <img ngf-src="news.image.relativePath"> 
 
                 </div>
 
                 <div class="form-group">
-                    <input type="submit" value="Update" class="btn btn-default">
+                    <label class="control-label" for="titre">Vidéo</label>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="controls">
+                                 <input type="text" data-ng-model="news.video.link" id="news.video.link" class="form-control" placeholder="Lien vidéo" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div ng-if="video.link != null">
+                        <iframe id="ytplayer" type="text/html" width="720" height="405"
+                            ng-src="{{video.link}}"
+                            frameborder="0" allowfullscreen>
+                    </div> -->
+                </div>
+                
+                <div class="form-group checkbox">
+                    <label>
+                        <input type="checkbox" data-ng-model="news.publie" id="news.publie" /> Publier cette news
+                    </label>
+                </div>
+
+                <div class="form-group pad-top-20">
+                    <input type="submit" value="Mettre à jour" class="btn btn-default">
                 </div>
 				<div data-ng-show="error" class="text-danger">
 					<strong data-ng-bind="error"></strong>

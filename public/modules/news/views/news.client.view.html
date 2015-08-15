@@ -1,25 +1,29 @@
-<style type="text/css">
-
-    .thumbnail {
-        max-width: 100px;
-        max-height: 100px;
-    }
-
-</style>
-
-
 <section data-ng-controller="NewsController" data-ng-init="find()">
     <div class="page-header">
         <h1>News</h1>
     </div>
     <div class="list-group">
-        <a data-ng-repeat="news in news" data-ng-href="#!/news/{{news._id}}" class="list-group-item">
+        <div data-ng-repeat="news in news" class="list-group-item">
             <h4 class="list-group-item-heading" data-ng-bind="news.titre"></h4>
             <span data-ng-bind="news.texte"></span>
-            <img ng-show="{{news.image.relativePath != null && news.image.relativePath != ''}}" ng-src="{{news.image.relativePath}}" class="img-rounded thumbnail" />
-        </a>
+            <img ng-show="{{news.image.relativePath != null && news.image.relativePath != ''}}" ng-src="{{news.image.relativePath}}" class="thumb" />
+
+            <div style="padding-top:10px">
+                <a class="btn btn-primary" href="#!/news/{{news._id}}">
+                    <i class="glyphicon glyphicon-eye-open"></i> Voir
+                </a>
+                <a class="btn btn-primary" href="/#!/news/{{news._id}}/edit">
+                    <i class="glyphicon glyphicon-edit"></i> Editer
+                </a>
+                <a class="btn btn-primary" data-ng-click="removeById(news._id);">
+                    <i class="glyphicon glyphicon-trash"></i> Supprimer
+                </a>
+            </div>
+
+        </div>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!news.$resolved || news.length">
         Aucune news<a href="/#!/news/create"> créer une news </a>?
     </div>
 </section>
+
